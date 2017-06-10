@@ -37,7 +37,14 @@ describe('Check "getQuery function', () => {
 
   it('should return "query" string' , () => {
     const filtersList = [sectorFilter1, sectorFilter2, currencyFilter1, currencyFilter2, countryFilter1, countryFilter2];
-    const result = 'gicsSector=CASH&gicsIndustryGroup=Money&currency=USD&currency=CAD&country=USA&country=CA';
+    const result = 'gicsSector=CASH&gicsIndustryGroup=Money%20category&currency=USD&currency=CAD&country=USA&country=CA';
+
+    expect(constructQuery(filtersList)).toBe(result);
+  });
+
+  it('should return "query" string with encoded values' , () => {
+    const filtersList = [sectorFilter1, sectorFilter2];
+    const result = 'gicsSector=CASH&gicsIndustryGroup=Money%20category';
 
     expect(constructQuery(filtersList)).toBe(result);
   });

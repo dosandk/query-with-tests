@@ -4,7 +4,7 @@ const sectorFilter1 = {
 };
 const sectorFilter2 = {
   queryKey: 'gicsIndustryGroup',
-  value: 'Money'
+  value: 'Money category'
 };
 const currencyFilter1 = {
   queryKey: 'currency',

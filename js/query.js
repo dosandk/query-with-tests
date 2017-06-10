@@ -12,7 +12,7 @@ function constructQuery(arr) {
     if (typeof queryKey === 'undefined') throw Error(`filed "queryKey" doesn\`t exist`);
     if (typeof value === 'undefined') throw Error(`filed "value" doesn\`t exist`);
 
-    accum += `${item.queryKey}=${item.value}${separator}`;
+    accum += `${item.queryKey}=${encodeURIComponent(item.value)}${separator}`;
 
     return accum;
   }, result)
