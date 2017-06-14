@@ -21,9 +21,9 @@ describe('Check "getQuery function', () => {
     expect(constructQuery([])).toBe('');
   });
 
-  it('should throw error if "queryKey"  field doesn\'t exist' , () => {
+  it('should throw error if "key"  field doesn\'t exist' , () => {
     const filtersList = [sectorFilter1, sectorFilter2, filterWithInvalidQueryKey];
-    const result = `filed "queryKey" doesn\`t exist`;
+    const result = `filed "key" doesn\`t exist`;
 
     expect(() => constructQuery(filtersList)).toThrowError(result);
   });

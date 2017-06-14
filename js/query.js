@@ -1,21 +1,22 @@
-function constructQuery(arr) {
-  let result = '';
+function constructQueryString (filtersArr) {
+  const result = '';
 
-  if (!Array.isArray(arr) || !arr.length) {
+  if (!Array.isArray(filtersArr) || !filtersArr.length) {
     return result;
   }
 
-  return arr.reduce((accum, item, index, arr) => {
+  return filtersArr.reduce((accum, item, index, arr) => {
     const separator = index !== arr.length - 1 ? '&' : '';
-    const {queryKey, value} = item;
+    const {key, value} = item;
 
-    if (typeof queryKey === 'undefined') throw Error(`filed "queryKey" doesn\`t exist`);
-    if (typeof value === 'undefined') throw Error(`filed "value" doesn\`t exist`);
+    if (typeof key === 'undefined') throw Error('field "key" doesn\'t exist');
+    if (typeof value === 'undefined') throw Error('field "value" doesn\'t exist');
 
-    accum += `${item.queryKey}=${encodeURIComponent(item.value)}${separator}`;
+    accum += `${item.key}=${encodeURIComponent(item.value)}${separator}`;
 
     return accum;
-  }, result)
+  }, result);
 }
 
 module.exports = constructQuery;
+

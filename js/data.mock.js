@@ -1,29 +1,29 @@
 const sectorFilter1 = {
-  queryKey: 'gicsSector',
+  key: 'gicsSector',
   value: 'CASH'
 };
 const sectorFilter2 = {
-  queryKey: 'gicsIndustryGroup',
+  key: 'gicsIndustryGroup',
   value: 'Money category'
 };
 const currencyFilter1 = {
-  queryKey: 'currency',
+  key: 'currency',
   value: 'USD'
 };
 const currencyFilter2 = {
-  queryKey: 'currency',
+  key: 'currency',
   value: 'CAD'
 };
 const countryFilter1 = {
-  queryKey: 'country',
+  key: 'country',
   value: 'USA'
 };
 const countryFilter2 = {
-  queryKey: 'country',
+  key: 'country',
   value: 'CA'
 };
 const filterWithInvalidValue = {
-  queryKey: 'country',
+  key: 'country',
 };
 const filterWithInvalidQueryKey = {
   value: 'CA',
