@@ -10,9 +10,37 @@
 </head>
 <body>
   <script src="js/query.js"></script>
+  <script src="js/query-from-obj.js"></script>
+  <script src="js/clear-query-string.js"></script>
 
   <script>
      console.error(constructQuery([sectorFilter1, sectorFilter2, currencyFilter1, currencyFilter2, countryFilter1, countryFilter2]));
+
+     const obj = {
+       api: 'some api string',
+       pages: 10,
+       language: 'en'
+     };
+
+     console.error(constructQueryFromObj(obj));
+
+     const filters = [
+       {
+         "key": "gicsSector",
+         "value": "25",
+         "parent": "",
+         "label": "Consumer Discretionary"
+       },
+       {
+         "key": "gicsSector",
+         "value": "10",
+         "parent": "",
+         "label": "Energy"
+       }
+     ];
+     const string = 'gicsSector=25&gicsSector=10&gicsIndustryGroup=2020&currency=USD&currency=CAD&country=USA&country=CA';
+
+     console.error(clearQueryString (string, filters));
   </script>
 </body>
 </html>

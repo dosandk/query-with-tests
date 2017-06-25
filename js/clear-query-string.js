@@ -20,7 +20,7 @@ function clearQueryString (string, activeFilters) {
 
   const separator = '&';
   const queryArr = string.split(separator);
-  const activeFiltersQueryString = constructQueryString(activeFilters);
+  const activeFiltersQueryString = constructQuery(activeFilters);
   const activeFiltersQueryArr = activeFiltersQueryString.split(separator);
   const queryArrCleared = queryArr.filter(item => activeFiltersQueryArr.indexOf(item) < 0);
 
@@ -30,5 +30,7 @@ function clearQueryString (string, activeFilters) {
     return {key, value};
   });
 
-  return constructQueryString(obj);
+  return constructQuery(obj);
 }
+
+module.exports = clearQueryString;

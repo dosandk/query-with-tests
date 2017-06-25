@@ -1,4 +1,4 @@
-function constructQueryString (filtersArr) {
+function constructQuery (filtersArr) {
   const result = '';
 
   if (!Array.isArray(filtersArr) || !filtersArr.length) {

@@ -12,7 +12,7 @@ const {
   filterWithInvalidQueryKey
 } = mockedData;
 
-describe('Check "getQuery function', () => {
+describe('Check "constructQuery" function', () => {
   it('should return empty string if argument is not array', () => {
     expect(constructQuery({})).toBe('');
   });
@@ -21,16 +21,16 @@ describe('Check "getQuery function', () => {
     expect(constructQuery([])).toBe('');
   });
 
-  it('should throw error if "key"  field doesn\'t exist' , () => {
+  it('should throw error if "key" field doesn\'t exist' , () => {
     const filtersList = [sectorFilter1, sectorFilter2, filterWithInvalidQueryKey];
-    const result = `filed "key" doesn\`t exist`;
+    const result = 'field "key" doesn\'t exist';
 
     expect(() => constructQuery(filtersList)).toThrowError(result);
   });
 
   it('should throw error if "value" filed doesn\'t exist' , () => {
     const filtersList = [sectorFilter1, sectorFilter2, filterWithInvalidValue];
-    const result = `filed "value" doesn\`t exist`;
+    const result = 'field "value" doesn\'t exist';
 
     expect(() => constructQuery(filtersList)).toThrowError(result);
   });
