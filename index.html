@@ -41,6 +41,14 @@
      const string = 'gicsSector=25&gicsSector=10&gicsIndustryGroup=2020&currency=USD&currency=CAD&country=USA&country=CA';
 
      console.error(clearQueryString (string, filters));
+
+     function strictEncode (str) {
+       return encodeURIComponent(str).replace(/[!'()*]/g,
+         char => '%' + char.charCodeAt(0).toString(16).toUpperCase()
+     )}
+
+     console.error(strictEncode('"="'))
+
   </script>
 </body>
 </html>

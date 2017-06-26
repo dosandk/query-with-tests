@@ -18,5 +18,9 @@ function constructQuery (filtersArr) {
   }, result);
 }
 
+// function encode(value, opts) {
+//   return opts && opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+// }
+
 module.exports = constructQuery;
 
