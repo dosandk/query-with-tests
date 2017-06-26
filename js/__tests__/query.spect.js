@@ -1,5 +1,5 @@
 const mockedData = require('../data.mock');
-const constructQuery = require('../query');
+const {constructQuery, constructQueryFromObj} = require('../query');
 
 const {
   sectorFilter1,
@@ -9,7 +9,8 @@ const {
   countryFilter1,
   countryFilter2,
   filterWithInvalidValue,
-  filterWithInvalidQueryKey
+  filterWithInvalidQueryKey,
+  filterWithSpecialChars
 } = mockedData;
 
 describe('Check "constructQuery" function', () => {
@@ -47,5 +48,48 @@ describe('Check "constructQuery" function', () => {
     const result = 'gicsSector=CASH&gicsIndustryGroup=Money%20category';
 
     expect(constructQuery(filtersList)).toBe(result);
+  });
+
+  it('should return "query" string with strict encoded values' , () => {
+    const filtersList = [sectorFilter1, sectorFilter2, filterWithSpecialChars];
+    const result = 'gicsSector=CASH&gicsIndustryGroup=Money%20category&country!=%2ACA%2A';
+    const options = {strict: true};
+
+    expect(constructQuery(filtersList, options)).toBe(result);
+  });
+});
+
+describe('Check "constructQueryFromObj" function', () => {
+  it('should return empty string if argument is not object', () => {
+    expect(constructQueryFromObj(null)).toBe('');
+    expect(constructQueryFromObj([])).toBe('');
+    expect(constructQueryFromObj(() => {})).toBe('');
+  });
+
+  it('should return empty string for empty object', () => {
+    expect(constructQueryFromObj({})).toBe('');
+  });
+
+  it('should return "query" string' , () => {
+    const obj = {
+      api: 'some api string',
+      pages: 10,
+      language: 'en'
+    };
+    const result = 'api=some%20api%20string&pages=10&language=en';
+
+    expect(constructQueryFromObj(obj)).toBe(result);
+  });
+
+  it('should return "query" string with strict encoded values' , () => {
+    const obj = {
+      api: 'some (api) string',
+      pages: 10,
+      language: '*en'
+    };
+    const options = {strict: true};
+    const result = 'api=some%20%28api%29%20string&pages=10&language=%2Aen';
+
+    expect(constructQueryFromObj(obj, options)).toBe(result);
   });
 });

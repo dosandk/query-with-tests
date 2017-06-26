@@ -28,6 +28,10 @@ const filterWithInvalidValue = {
 const filterWithInvalidQueryKey = {
   value: 'CA',
 };
+const filterWithSpecialChars = {
+  key: 'country!',
+  value: '*CA*'
+};
 
 module.exports = {
   sectorFilter1,
@@ -37,5 +41,6 @@ module.exports = {
   countryFilter1,
   countryFilter2,
   filterWithInvalidValue,
-  filterWithInvalidQueryKey
+  filterWithInvalidQueryKey,
+  filterWithSpecialChars
 };
