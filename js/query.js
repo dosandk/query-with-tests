@@ -1,5 +1,6 @@
 function constructQuery (filtersArr, options = {}) {
   const result = '';
+  const {encodeSeparators = false} = options;
 
   if (!Array.isArray(filtersArr) || !filtersArr.length) {
     return result;
@@ -12,7 +13,9 @@ function constructQuery (filtersArr, options = {}) {
     if (typeof key === 'undefined') throw Error('field "key" doesn\'t exist');
     if (typeof value === 'undefined') throw Error('field "value" doesn\'t exist');
 
-    accum += `${item.key}=${encode(item.value, options)}${separator}`;
+    accum += encodeSeparators
+      ? `${key}${encodeWithSeparators(value, separator)}`
+      : `${key}=${encodeURIComponent(value)}${separator}`;
 
     return accum;
   }, result);
@@ -20,6 +23,7 @@ function constructQuery (filtersArr, options = {}) {
 
 function constructQueryFromObj (obj = {}, options = {}) {
   const result = '';
+  const {encodeSeparators = false} = options;
 
   if (Object.prototype.toString.call(obj) !== '[object Object]') {
     return result;
@@ -29,23 +33,29 @@ function constructQueryFromObj (obj = {}, options = {}) {
     const separator = index !== arr.length - 1 ? '&' : '';
     const value = obj[item];
 
-    accum += `${item}=${encode(value, options)}${separator}`;
+    accum += encodeSeparators
+      ? `${item}${encodeWithSeparators(value, separator)}`
+      : `${item}=${encodeURIComponent(value)}${separator}`;
 
     return accum;
   }, result);
 }
 
-function encode(str, options) {
-  return options.strict ? strictEncodeURIComponent(str) : encodeURIComponent(str);
+function concatQueryStrings (...args) {
+  const [queryFirst = '', querySecond = '', ...rest] = args;
+  const options = typeof rest[rest.length - 1] === 'object' ? rest.pop() : {};
+  const {encodeSeparators = false} = options;
+  const joiner = (toEncode, separator) => toEncode ? encodeURIComponent(separator) : separator;
+
+  return [queryFirst, querySecond].concat(rest).filter(item => !!item).join(joiner(encodeSeparators, '&'));
 }
 
-function strictEncodeURIComponent (str) {
-  return encodeURIComponent(str).replace(/[!'()*]/g,
-    char => '%' + char.charCodeAt(0).toString(16).toUpperCase()
-  )
+function encodeWithSeparators (value, separator) {
+  return encodeURIComponent(`=${value}${separator}`);
 }
 
 module.exports = {
   constructQueryFromObj,
-  constructQuery
+  constructQuery,
+  concatQueryStrings
 };
