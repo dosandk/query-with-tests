@@ -10,7 +10,7 @@ function constructQuery (filtersArr, options = {}) {
     const separator = index !== arr.length - 1 ? '&' : '';
     const {key, value} = item;
 
-    if (typeof key === 'undefined') throw Error('field "key" doesn\'t exist');
+    // if (typeof key === 'undefined') throw Error('field "key" doesn\'t exist');
     if (typeof value === 'undefined') throw Error('field "value" doesn\'t exist');
 
     accum += encodeSeparators
